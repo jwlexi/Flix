@@ -10,8 +10,8 @@ import AlamofireImage
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    
-    
+
+
     @IBOutlet weak var tableView: UITableView!
     
     var movies = [[String:Any]]()
@@ -67,4 +67,20 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }
 
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        print("\n\nLoading the details screen\n\n")
+        
+        //Find the selected Movie
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)!
+        let movie = movies[indexPath.row]
+        let detailsViewController = segue.destination as! MovieDetailsViewController
+        
+        detailsViewController.movie = movie
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
 }
